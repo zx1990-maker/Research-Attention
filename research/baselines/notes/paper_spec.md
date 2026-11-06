@@ -1,0 +1,85 @@
+# 论文定义与复现边界
+
+主来源：用户提供的 `2510.11616v1.pdf`，共 9 页；下文页码是 PDF 页序号。关键页 4、5、6、9 已渲染核对公式、脚注和表格。论文在线版本：[arXiv v1](https://arxiv.org/html/2510.11616v1)。用户提供的 Claude 对话为架构评论，不是实验指令，不替代论文定义。
+
+## 1. 两个目标模型
+
+§4.2（第 5 页）明确列出三个模型：Attention Factors、PCA Factors、PCA+OU Thresh。因此本次排除 Attention 后，目标为 **PCA + LongConv** 和 **PCA + OU Threshold**。IPCA 只在相关工作和方法背景中出现，不是本文 Table 2 的独立基准模型。
+
+- **PCA + LongConv**：先用过去 252 个交易日估计 PCA 因子，再冻结因子提取模块，训练与 Attention 方案同类的 LongConv 策略，最大化扣成本后的 Sharpe。
+- **PCA + OU Threshold**：同样使用 PCA 残差，以 OU 模型拟合累积残差路径，并按阈值规则分配残差组合；论文声明使用参考文献 [19] 的实现。
+
+## 2. 论文明确的样本与时序
+
+第 4–5 页：原始 CRSP 日数据覆盖 1990 年 1 月至 2021 年 12 月，每月根据上月市值选前 500 只股票。采用 8 年滚动训练窗，每年重训，样本外为 1998 年 1 月至 2021 年 12 月。第一个训练窗最后两年用于调参；未明确说明调参后是否对首个 8 年窗完整重训。
+
+所有序列模型回看 **30 个日残差收益**。主文没有要求 LongConv 输入先做累计和。OU 拟合累计残差，是 [19] 的专属模型步骤，不能自动套用到 LongConv。
+
+Attention 的 39 个公司特征、其截面中位数及无风险利率共 79 维；特征先用历史最近观测填充，再用同期截面中位数。两个 PCA 基准的因子和信号不需要公司特征；因此特征缺失不应成为这两个模型可交易股票的筛选标准。
+
+## 3. 资产权重、成本和指标
+
+以列向量约定：因子权重 A 为 K×N，loadings B 为 N×K，P=I−BA，残差 ε_t=P_{t−1}r_t。策略产生残差权重 q_{t−1}，对应资产权重 w_{t−1}=P_{t−1}^T q_{t−1}。**在资产空间**令 ||w||₁=1，不能只标准化 q。零信号时保持现金是处理约束边界的实现约定。
+
+第 4 页成本公式：5 bps × ||w_new−w_previous||₁ + 1 bp × Σ max(−w_new,0)。这里是每次日收益扣除的成本，并非年化 1 bp；换手不是除以二的单边换手。成本必须在资产空间计算。论文符号在持仓收益与成本处有一个时标偏移；实作应统一为用 t−1 已知信息建仓，承受 t 日收益并扣当次调仓成本。
+
+第 6 页 Table 2 的 μ、σ 以百分数报告。按其 μ/SR≈σ 可知这里是年化算术平均收益，不能用 CAGR 替代。建议分别报告 μ=252·mean(r)、σ=√252·std(r,ddof=0)、SR=√252·mean(r_excess)/std(r_excess)，同时明确无风险利率的口径。若输入已经是 excess return，不得二次减 rf。净收益再扣交易成本。额外的 CAGR、回撤可独立报告，不与论文 μ 混写。
+
+论文未交代：建仓首日/终止日清仓费用、调仓前权重是否按价格漂移、停牌/缺失/退市处理、种子数和所有优化器实现细节。这些都必须作为复现选择说明，不能声称作者原设定。
+
+无风险利率补充核对：[19] 正文 II.A（PDF 第 8 页）明确以股票收益减无风险利率定义输入，其官方 PCA 源码读取 `DailyReturns-RFadjusted-old.npz`。本次采用 RET_ADJ−rf 构造 PCA 和策略，报告日超额收益 w·(R−rf) 及其扣成本值；单位抵押现金组合总收益可解释为 rf+w·(R−rf)−cost。这样不会在净股票敞口不等于 1 时误减整额 rf。Attention 论文没有明确交代这一数据口径，因此仍属于有参考依据的复现约定。
+
+## 4. LongConv：明确部分与重建部分
+
+附录 A（第 9 页）：每个 hidden channel 使用可学习长卷积核 K 和 skip 参数 D，y=K*u+D⊙u；因果卷积核第 0 项作用于当前输入。FFT 只是计算方法，零填充至至少 2L−1 后，其最后时点输出与直接卷积完全等价。
+
+每次 forward 使用 squash(K)=sign(K)·max(|K|−0.001,0)。初始化为 K[h,t]=Normal(0,1)·exp[−(t/T)·(d/2)^(h/d)]，t=1,…,T，h=1,…,d；注意括号不是把 (d/2)^(h/d) 放到分母。
+
+第 9 页 Table 4：hidden dim=32，dropout=0.1，sequence layers=1，epochs=30，learning rate=0.003，LongConv weight decay=0.05，geometric decay initialization，squash=0.001。λ_VAR=100 是 Attention 联合估计参数；PCA 已冻结时解释方差项是常数，对 LongConv 梯度无作用。
+
+论文没有给出输入/输出映射、激活、归一化、skip 初始化和 minibatch 大小。本文重建采用 scalar→hidden 线性投影、上述因果 LongConv+skip、GELU、dropout、scalar readout，所有资产共享参数。输入是原始日残差，skip 初始化为 1。这些是透明的实现选择，不是已核实的作者网络源码。正文称 Adam，但参考文献 [27] 是 AdamW 论文，故 Adam 与 AdamW 也存在来源歧义。
+
+`models.py` 仅计算所需最后一个因果输出，并把线性输入 embedding 折叠进卷积权重，避免创建 batch×assets×hidden×lookback 的大张量。独立测试将前向结果和参数梯度与完整零填充 FFT 实现比较，并检验因果性及资产置换等变性。
+
+## 5. OU 参数来源与规则
+
+直接来源：[Guijarro-Ordonez et al., Deep Learning Statistical Arbitrage](https://arxiv.org/pdf/2106.04028)，PDF 第 14 页（正文页 13）、第 56 页（正文页 55），以及其 [官方预处理源码](https://github.com/gregzanotti/dlsa-public/blob/main/preprocess.py)。
+
+用回看窗中的日残差累加成 X，拟合 X[j+1]=a+bX[j]+e。要求 0<b<1；μ=a/(1−b)，σ_eq=√(var(e)/(1−b²))，s=(X_last−μ)/σ_eq。每一天独立给出 q=−1（s>c 且 R²>r），q=+1（s<−c 且 R²>r），否则 q=0。文献选定 c=1.25，r=0.25；验证候选分别为 {1,1.25,1.5} 和 {0.25,0.5,0.75}。这是无状态阈值策略，不是带不同开仓/平仓阈值的 hysteresis。不要添加未经说明的半衰期过滤。
+
+## 6. PCA 的关键歧义
+
+Attention 主文第 2 页引言称 explained correlation，第 2–3 页方法概述又称 covariance eigenvectors；第 5 页基准定义只说过去 252 日 PCA，未给出细节。
+
+参考文献 [19] 的 [官方 PCA 源码](https://github.com/gregzanotti/dlsa-public/blob/main/factor_models/pca.py) 使用 252 日标准化收益的相关矩阵 eigenvectors，然后用最近 60 日、无截距 OLS 得到 beta。它与简单 covariance PCA 的正交投影不等价。
+
+官方旧代码的某些版本把收益当日纳入窗口或股票有效性判定；这些会产生事后信息依赖，不能机械照搬。本次应采用严格历史窗口、只用下单时已知信息，并明示选择 covariance PCA 或 correlation+OLS。任何将逐日 PCA 改成按月更新、缩短训练窗、缩小股票池或减少 K 的加速，必须在结果中显式标注。
+
+## 7. Table 2 基准目标值（原文第 6 页；百分数）
+
+| 模型 | K | SR | μ | σ | SR_net | μ_net | σ_net | Beta |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| PCA+OU | 1 | 0.40 | 1.85 | 4.57 | -2.54 | -11.62 | 4.57 | 0.02 |
+| PCA+OU | 3 | 1.26 | 4.18 | 3.33 | -2.72 | -9.04 | 3.33 | 0.01 |
+| PCA+OU | 5 | 0.99 | 2.91 | 2.93 | -3.44 | -10.11 | 2.93 | 0.00 |
+| PCA+OU | 8 | 0.78 | 2.04 | 2.61 | -4.15 | -10.83 | 2.61 | 0.00 |
+| PCA+OU | 10 | 0.80 | 1.99 | 2.50 | -4.32 | -10.80 | 2.50 | 0.00 |
+| PCA+OU | 15 | 0.51 | 1.12 | 2.20 | -5.24 | -11.53 | 2.20 | 0.00 |
+| PCA+OU | 30 | 0.18 | 0.40 | 2.24 | -6.45 | -14.74 | 2.29 | 0.00 |
+| PCA+OU | 100 | -0.35 | -0.66 | 1.87 | -7.05 | -13.23 | 1.88 | 0.00 |
+| PCA+LongConv | 1 | 2.26 | 13.10 | 5.79 | 1.19 | 6.98 | 5.78 | 0.10 |
+| PCA+LongConv | 3 | 2.76 | 14.61 | 5.30 | 1.57 | 8.29 | 5.28 | 0.07 |
+| PCA+LongConv | 5 | 2.41 | 14.10 | 5.86 | 1.30 | 7.62 | 5.84 | 0.10 |
+| PCA+LongConv | 8 | 2.64 | 14.88 | 5.63 | 1.50 | 8.42 | 5.61 | 0.09 |
+| PCA+LongConv | 10 | 2.66 | 14.94 | 5.61 | 1.52 | 8.48 | 5.59 | 0.09 |
+| PCA+LongConv | 15 | 2.56 | 14.74 | 5.75 | 1.41 | 8.08 | 5.73 | 0.09 |
+| PCA+LongConv | 30 | 2.79 | 15.15 | 5.42 | 1.57 | 8.47 | 5.40 | 0.09 |
+| PCA+LongConv | 100 | 2.66 | 14.36 | 5.40 | 1.44 | 7.75 | 5.38 | 0.09 |
+
+这些是论文结果，不是本项目新运行结果。对照时必须保留两者的样本、实现和数据差异。
+
+## 8. 公开实现检索结果
+
+[第一作者研究主页](https://elliotepstein.net/) 的 Attention Factors 条目只链接论文和幻灯片，未列出本论文代码；其 LongConv 项目另有源码。这只能说明本次查到的主页没有代码链接，不能证明代码在全网不存在。
+
+[DLSA 官方 GitHub](https://github.com/gregzanotti/dlsa-public) 可用于核对其参考实现，但不是 Attention Factors 作者代码。[Pelger 数据代码页面](https://mpelger.people.stanford.edu/data-and-code) 另链接 DLSA Dropbox。Dropbox 未取得可读目录，本次未据此声称检视过该更新版本。

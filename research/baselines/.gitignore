@@ -1,0 +1,8 @@
+data/
+cache/
+__pycache__/
+*.pyc
+results/**/checkpoints/
+results/**/weights*.npy
+results/**/weights.npz
+results/**/progress.json

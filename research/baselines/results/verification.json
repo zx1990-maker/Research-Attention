@@ -1,0 +1,114 @@
+[
+  {
+    "model": "PCA+LongConv",
+    "K": 1,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 10,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 100,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 15,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 3,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 30,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 5,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+LongConv",
+    "K": 8,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 1,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 10,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 100,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 15,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 3,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 30,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 5,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  },
+  {
+    "model": "PCA+OU",
+    "K": 8,
+    "days": 6040,
+    "max_gross_exposure": 1.000000238418579,
+    "pnl_recalculated": true
+  }
+]

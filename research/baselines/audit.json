@@ -1,0 +1,4610 @@
+{
+  "files": {
+    "universe": {
+      "path": "data/universe_monthly.parquet",
+      "bytes": 350798,
+      "sha256": "175c9d574f3e4287600b79c224912373c2de9680d9d3abe7d62b3eabf0768f1d",
+      "rows": 222500,
+      "columns": {
+        "PERMNO": "int64",
+        "eval_month": "timestamp[ns]"
+      },
+      "missing_count": {
+        "PERMNO": 0,
+        "eval_month": 0
+      },
+      "ranges": {},
+      "metadata": {},
+      "date_min": "1985-01-31",
+      "date_max": "2022-01-31",
+      "date_count": 445,
+      "unique_permno": 2203,
+      "duplicate_keys": 0,
+      "assets_per_date": {
+        "count": 445.0,
+        "mean": 500.0,
+        "std": 0.0,
+        "min": 500.0,
+        "25%": 500.0,
+        "50%": 500.0,
+        "75%": 500.0,
+        "max": 500.0
+      }
+    },
+    "features": {
+      "path": "data/features.parquet",
+      "bytes": 86972737,
+      "sha256": "39e71a55ff4afea97e06cd381471a7eba1a8fc29ff0cf75aa28dccf14ad4567b",
+      "rows": 4654414,
+      "columns": {
+        "DATE": "timestamp[ns]",
+        "PERMNO": "int64",
+        "RET_ADJ": "float",
+        "r2_1": "float",
+        "r12_2": "float",
+        "r12_7": "float",
+        "r36_13": "float",
+        "ST_Rev": "float",
+        "Ret_D1": "float",
+        "Ret_W1": "float",
+        "STD_W1": "float",
+        "AT": "float",
+        "LME": "float",
+        "LTurnover": "float",
+        "Rel2High": "float",
+        "Resid_Var": "float",
+        "Spread": "float",
+        "SUV": "float",
+        "Variance": "float",
+        "Vol": "float",
+        "Beta": "float",
+        "A2ME": "float",
+        "BEME": "float",
+        "C": "float",
+        "CF": "float",
+        "CF2P": "float",
+        "Q": "float",
+        "Lev": "float",
+        "E2P": "float",
+        "Investment": "float",
+        "NOA": "float",
+        "DPI2A": "float",
+        "PROF": "float",
+        "CTO": "float",
+        "FC2Y": "float",
+        "OP": "float",
+        "PM": "float",
+        "RNA": "float",
+        "D2A": "float",
+        "OA": "float",
+        "OL": "float",
+        "PCM": "float",
+        "med_r2_1": "float",
+        "med_r12_2": "float",
+        "med_r12_7": "float",
+        "med_r36_13": "float",
+        "med_ST_Rev": "float",
+        "med_Ret_D1": "float",
+        "med_Ret_W1": "float",
+        "med_STD_W1": "float",
+        "med_AT": "float",
+        "med_LME": "float",
+        "med_LTurnover": "float",
+        "med_Rel2High": "float",
+        "med_Resid_Var": "float",
+        "med_Spread": "float",
+        "med_SUV": "float",
+        "med_Variance": "float",
+        "med_Vol": "float",
+        "med_Beta": "float",
+        "med_A2ME": "float",
+        "med_BEME": "float",
+        "med_C": "float",
+        "med_CF": "float",
+        "med_CF2P": "float",
+        "med_Q": "float",
+        "med_Lev": "float",
+        "med_E2P": "float",
+        "med_Investment": "float",
+        "med_NOA": "float",
+        "med_DPI2A": "float",
+        "med_PROF": "float",
+        "med_CTO": "float",
+        "med_FC2Y": "float",
+        "med_OP": "float",
+        "med_PM": "float",
+        "med_RNA": "float",
+        "med_D2A": "float",
+        "med_OA": "float",
+        "med_OL": "float",
+        "med_PCM": "float",
+        "rf": "float"
+      },
+      "missing_count": {
+        "DATE": 0,
+        "PERMNO": 0,
+        "RET_ADJ": 40,
+        "r2_1": 0,
+        "r12_2": 0,
+        "r12_7": 0,
+        "r36_13": 0,
+        "ST_Rev": 0,
+        "Ret_D1": 0,
+        "Ret_W1": 0,
+        "STD_W1": 0,
+        "AT": 0,
+        "LME": 0,
+        "LTurnover": 0,
+        "Rel2High": 0,
+        "Resid_Var": 0,
+        "Spread": 0,
+        "SUV": 0,
+        "Variance": 0,
+        "Vol": 0,
+        "Beta": 0,
+        "A2ME": 0,
+        "BEME": 0,
+        "C": 0,
+        "CF": 0,
+        "CF2P": 0,
+        "Q": 0,
+        "Lev": 0,
+        "E2P": 0,
+        "Investment": 0,
+        "NOA": 0,
+        "DPI2A": 0,
+        "PROF": 0,
+        "CTO": 0,
+        "FC2Y": 0,
+        "OP": 0,
+        "PM": 0,
+        "RNA": 0,
+        "D2A": 0,
+        "OA": 0,
+        "OL": 0,
+        "PCM": 0,
+        "med_r2_1": 10992,
+        "med_r12_2": 93784,
+        "med_r12_7": 115227,
+        "med_r36_13": 314348,
+        "med_ST_Rev": 10992,
+        "med_Ret_D1": 500,
+        "med_Ret_W1": 2000,
+        "med_STD_W1": 2000,
+        "med_AT": 440968,
+        "med_LME": 10992,
+        "med_LTurnover": 10992,
+        "med_Rel2High": 62433,
+        "med_Resid_Var": 20491,
+        "med_Spread": 10992,
+        "med_SUV": 41489,
+        "med_Variance": 20491,
+        "med_Vol": 2000,
+        "med_Beta": 378155,
+        "med_A2ME": 440968,
+        "med_BEME": 440968,
+        "med_C": 440968,
+        "med_CF": 440968,
+        "med_CF2P": 440968,
+        "med_Q": 440968,
+        "med_Lev": 440968,
+        "med_E2P": 440968,
+        "med_Investment": 567197,
+        "med_NOA": 567197,
+        "med_DPI2A": 567197,
+        "med_PROF": 440968,
+        "med_CTO": 567197,
+        "med_FC2Y": 440968,
+        "med_OP": 440968,
+        "med_PM": 440968,
+        "med_RNA": 567197,
+        "med_D2A": 440968,
+        "med_OA": 567197,
+        "med_OL": 440968,
+        "med_PCM": 440968,
+        "rf": 500
+      },
+      "ranges": {
+        "RET_ADJ": {
+          "min": -0.9424657821655273,
+          "max": 1.039359450340271
+        },
+        "r2_1": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "r12_2": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "r12_7": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "r36_13": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "ST_Rev": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Ret_D1": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Ret_W1": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "STD_W1": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "AT": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "LME": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "LTurnover": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Rel2High": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Resid_Var": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Spread": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "SUV": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Variance": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Vol": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Beta": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "A2ME": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "BEME": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "C": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "CF": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "CF2P": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Q": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Lev": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "E2P": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "Investment": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "NOA": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "DPI2A": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "PROF": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "CTO": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "FC2Y": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "OP": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "PM": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "RNA": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "D2A": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "OA": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "OL": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "PCM": {
+          "min": -0.5,
+          "max": 0.5
+        },
+        "med_r2_1": {
+          "min": -0.22875629365444183,
+          "max": 0.13161395490169525
+        },
+        "med_r12_2": {
+          "min": -0.3666614592075348,
+          "max": 0.6181502342224121
+        },
+        "med_r12_7": {
+          "min": -0.40557873249053955,
+          "max": 0.43140709400177
+        },
+        "med_ST_Rev": {
+          "min": -0.22875629365444183,
+          "max": 0.13161395490169525
+        },
+        "med_Ret_D1": {
+          "min": -0.17014038562774658,
+          "max": 0.1141771748661995
+        },
+        "med_Ret_W1": {
+          "min": -0.2548076808452606,
+          "max": 0.2104005515575409
+        },
+        "med_STD_W1": {
+          "min": 0.005086652934551239,
+          "max": 0.10555734485387802
+        },
+        "med_LME": {
+          "min": 1541.63427734375,
+          "max": 34306.734375
+        },
+        "med_LTurnover": {
+          "min": 0.035488560795784,
+          "max": 0.3729757070541382
+        },
+        "med_Rel2High": {
+          "min": 0.5325273275375366,
+          "max": 0.9918699264526367
+        },
+        "med_Resid_Var": {
+          "min": 6.680899241473526e-05,
+          "max": 0.001184789463877678
+        },
+        "med_Spread": {
+          "min": 0.00014426717825699598,
+          "max": 0.011391999199986458
+        },
+        "med_SUV": {
+          "min": -0.518302321434021,
+          "max": 0.9347540736198425
+        },
+        "med_Variance": {
+          "min": 9.64557402767241e-05,
+          "max": 0.0033207261003553867
+        },
+        "med_Vol": {
+          "min": 11.059112548828125,
+          "max": 1649.6990966796875
+        },
+        "rf": {
+          "min": 0.0,
+          "max": 0.00039999998989515007
+        },
+        "med_r36_13": {
+          "min": -0.37481915950775146,
+          "max": 1.1644065380096436
+        },
+        "med_Beta": {
+          "min": 0.6118547320365906,
+          "max": 1.509902000427246
+        },
+        "med_AT": {
+          "min": 4085.0,
+          "max": 19574.599609375
+        },
+        "med_A2ME": {
+          "min": 0.5174906253814697,
+          "max": 1.7542486190795898
+        },
+        "med_BEME": {
+          "min": 0.20556855201721191,
+          "max": 0.7411631345748901
+        },
+        "med_C": {
+          "min": 0.033008888363838196,
+          "max": 0.12286293506622314
+        },
+        "med_CF": {
+          "min": 0.029285456985235214,
+          "max": 0.16113416850566864
+        },
+        "med_CF2P": {
+          "min": 0.05653335526585579,
+          "max": 0.21911771595478058
+        },
+        "med_Q": {
+          "min": 1.1292192935943604,
+          "max": 2.541980743408203
+        },
+        "med_Lev": {
+          "min": 0.3142196238040924,
+          "max": 0.49398571252822876
+        },
+        "med_E2P": {
+          "min": 0.02785831317305565,
+          "max": 0.0882372036576271
+        },
+        "med_Investment": {
+          "min": 0.03010742925107479,
+          "max": 0.14521729946136475
+        },
+        "med_NOA": {
+          "min": 0.4931267201900482,
+          "max": 0.6517007350921631
+        },
+        "med_DPI2A": {
+          "min": 0.013897127471864223,
+          "max": 0.07868385314941406
+        },
+        "med_PROF": {
+          "min": 0.4929693341255188,
+          "max": 0.7518924474716187
+        },
+        "med_CTO": {
+          "min": 0.534633994102478,
+          "max": 0.9798204898834229
+        },
+        "med_FC2Y": {
+          "min": 0.20823538303375244,
+          "max": 0.320880651473999
+        },
+        "med_OP": {
+          "min": 0.2520204782485962,
+          "max": 0.37453341484069824
+        },
+        "med_PM": {
+          "min": 0.12895721197128296,
+          "max": 0.17267918586730957
+        },
+        "med_RNA": {
+          "min": 0.1517859697341919,
+          "max": 0.2725008726119995
+        },
+        "med_D2A": {
+          "min": 0.026197444647550583,
+          "max": 0.04455127194523811
+        },
+        "med_OA": {
+          "min": -0.05712844431400299,
+          "max": -0.030808977782726288
+        },
+        "med_OL": {
+          "min": 0.356567919254303,
+          "max": 0.6853480339050293
+        },
+        "med_PCM": {
+          "min": 0.3406667411327362,
+          "max": 0.468336284160614
+        }
+      },
+      "metadata": {
+        "feature_groups": {
+          "past_returns": [
+            "r2_1",
+            "r12_2",
+            "r12_7",
+            "r36_13",
+            "ST_Rev",
+            "Ret_D1",
+            "Ret_W1",
+            "STD_W1"
+          ],
+          "trading_frictions": [
+            "AT",
+            "LME",
+            "LTurnover",
+            "Rel2High",
+            "Resid_Var",
+            "Spread",
+            "SUV",
+            "Variance",
+            "Vol",
+            "Beta"
+          ],
+          "value": [
+            "A2ME",
+            "BEME",
+            "C",
+            "CF",
+            "CF2P",
+            "Q",
+            "Lev",
+            "E2P"
+          ],
+          "investment": [
+            "Investment",
+            "NOA",
+            "DPI2A"
+          ],
+          "profitability": [
+            "PROF",
+            "CTO",
+            "FC2Y",
+            "OP",
+            "PM",
+            "RNA",
+            "D2A"
+          ],
+          "intangibles": [
+            "OA",
+            "OL",
+            "PCM"
+          ]
+        },
+        "feature_cols": [
+          "r2_1",
+          "r12_2",
+          "r12_7",
+          "r36_13",
+          "ST_Rev",
+          "Ret_D1",
+          "Ret_W1",
+          "STD_W1",
+          "AT",
+          "LME",
+          "LTurnover",
+          "Rel2High",
+          "Resid_Var",
+          "Spread",
+          "SUV",
+          "Variance",
+          "Vol",
+          "Beta",
+          "A2ME",
+          "BEME",
+          "C",
+          "CF",
+          "CF2P",
+          "Q",
+          "Lev",
+          "E2P",
+          "Investment",
+          "NOA",
+          "DPI2A",
+          "PROF",
+          "CTO",
+          "FC2Y",
+          "OP",
+          "PM",
+          "RNA",
+          "D2A",
+          "OA",
+          "OL",
+          "PCM",
+          "med_r2_1",
+          "med_r12_2",
+          "med_r12_7",
+          "med_r36_13",
+          "med_ST_Rev",
+          "med_Ret_D1",
+          "med_Ret_W1",
+          "med_STD_W1",
+          "med_AT",
+          "med_LME",
+          "med_LTurnover",
+          "med_Rel2High",
+          "med_Resid_Var",
+          "med_Spread",
+          "med_SUV",
+          "med_Variance",
+          "med_Vol",
+          "med_Beta",
+          "med_A2ME",
+          "med_BEME",
+          "med_C",
+          "med_CF",
+          "med_CF2P",
+          "med_Q",
+          "med_Lev",
+          "med_E2P",
+          "med_Investment",
+          "med_NOA",
+          "med_DPI2A",
+          "med_PROF",
+          "med_CTO",
+          "med_FC2Y",
+          "med_OP",
+          "med_PM",
+          "med_RNA",
+          "med_D2A",
+          "med_OA",
+          "med_OL",
+          "med_PCM",
+          "rf"
+        ]
+      },
+      "date_min": "1985-01-02",
+      "date_max": "2021-12-31",
+      "date_count": 9327,
+      "unique_permno": 2203,
+      "duplicate_keys": 0,
+      "assets_per_date": {
+        "count": 9327.0,
+        "mean": 499.0258389621529,
+        "std": 1.1932495099967841,
+        "min": 491.0,
+        "25%": 498.0,
+        "50%": 499.0,
+        "75%": 500.0,
+        "max": 500.0
+      }
+    },
+    "daily": {
+      "path": "data/daily_panel.parquet",
+      "bytes": 286602934,
+      "sha256": "145d1e0b44ea7ba6ba74c3aa4e4a57c5e22d384d78a3234765ed41db6a9ad6a8",
+      "rows": 9805119,
+      "columns": {
+        "PERMNO": "int64",
+        "DATE": "timestamp[ns]",
+        "EXCHCD": "double",
+        "SICCD": "double",
+        "RET": "double",
+        "RETX": "double",
+        "BID": "double",
+        "ASK": "double",
+        "VOL": "double",
+        "SHROUT": "double",
+        "CFACPR": "double",
+        "PRC": "double",
+        "me": "double",
+        "quoted_spread": "double",
+        "DLRET": "double",
+        "RET_ADJ": "double",
+        "in_universe": "int8"
+      },
+      "missing_count": {
+        "PERMNO": 0,
+        "DATE": 0,
+        "EXCHCD": 0,
+        "SICCD": 0,
+        "RET": 1511,
+        "RETX": 1511,
+        "BID": 1657749,
+        "ASK": 1657749,
+        "VOL": 246,
+        "SHROUT": 0,
+        "CFACPR": 0,
+        "PRC": 259,
+        "me": 259,
+        "quoted_spread": 1657749,
+        "DLRET": 9803814,
+        "RET_ADJ": 1511,
+        "in_universe": 0
+      },
+      "ranges": {
+        "EXCHCD": {
+          "min": 1.0,
+          "max": 3.0
+        },
+        "SICCD": {
+          "min": 0.0,
+          "max": 9999.0
+        },
+        "RET": {
+          "min": -0.9424657821655273,
+          "max": 8.25
+        },
+        "RETX": {
+          "min": -0.9515570998191833,
+          "max": 8.25
+        },
+        "BID": {
+          "min": 0.009999999776482582,
+          "max": 452700.03125
+        },
+        "ASK": {
+          "min": 0.021900000050663948,
+          "max": 453384.0
+        },
+        "VOL": {
+          "min": 0.0,
+          "max": 1897900032.0
+        },
+        "SHROUT": {
+          "min": 450.0,
+          "max": 29206400.0
+        },
+        "CFACPR": {
+          "min": 0.000133,
+          "max": 480.0
+        },
+        "PRC": {
+          "min": 0.019999999552965164,
+          "max": 454550.0
+        },
+        "me": {
+          "min": 572.3125,
+          "max": 2947479994.518448
+        },
+        "quoted_spread": {
+          "min": -1.106430130419453,
+          "max": 1.9998331317024103
+        },
+        "DLRET": {
+          "min": -1.0,
+          "max": 3.0
+        },
+        "RET_ADJ": {
+          "min": -1.0,
+          "max": 8.25
+        },
+        "in_universe": {
+          "min": 0,
+          "max": 1
+        }
+      },
+      "metadata": {},
+      "date_min": "1985-01-02",
+      "date_max": "2021-12-31",
+      "date_count": 9327,
+      "unique_permno": 2203,
+      "duplicate_keys": 0,
+      "assets_per_date": {
+        "count": 9327.0,
+        "mean": 1051.2618205210679,
+        "std": 110.50489504398398,
+        "min": 864.0,
+        "25%": 977.0,
+        "50%": 1022.0,
+        "75%": 1148.0,
+        "max": 1251.0
+      }
+    }
+  },
+  "membership_month_offsets": {
+    "-1": {
+      "mismatch_rows": 253880,
+      "false_positive": 114145,
+      "false_negative": 139735
+    },
+    "0": {
+      "mismatch_rows": 0,
+      "false_positive": 0,
+      "false_negative": 0
+    },
+    "1": {
+      "mismatch_rows": 247906,
+      "false_positive": 127161,
+      "false_negative": 120745
+    }
+  },
+  "features_join": {
+    "counts": {
+      "both": 4654414,
+      "left_only": 0,
+      "right_only": 0
+    },
+    "max_abs_return_difference": 2.262947362829948e-08
+  },
+  "risk_free_rate": {
+    "unique_values_per_date_distribution": {
+      "1": 9326,
+      "0": 1
+    },
+    "missing_dates": [
+      "1985-01-02"
+    ],
+    "range": [
+      0.0,
+      0.00039999998989515007
+    ],
+    "interpretation": "Values are consistent with a daily decimal rate; provenance is not supplied."
+  },
+  "ret_d1_alignment": {
+    "RET_ADJ": {
+      "rank_correlation": -0.009198401167416272,
+      "mean_abs_rank_difference": 0.3285084220014842,
+      "max_abs_rank_difference": 1.0,
+      "fraction_abs_difference_le_1e_6": 0.002291158457326744
+    },
+    "lag1": {
+      "rank_correlation": 0.9999999778911741,
+      "mean_abs_rank_difference": 3.6594887040829186e-06,
+      "max_abs_rank_difference": 0.0021949881179766373,
+      "fraction_abs_difference_le_1e_6": 0.9943395666994814
+    },
+    "lag2": {
+      "rank_correlation": -0.009154226628042595,
+      "mean_abs_rank_difference": 0.32850711571790703,
+      "max_abs_rank_difference": 1.0,
+      "fraction_abs_difference_le_1e_6": 0.002292447556233717
+    }
+  },
+  "delisting_adjustment": {
+    "observations": 1305,
+    "max_abs_formula_error": 0.0,
+    "delisting_present_return_missing": 0,
+    "formula": "(1 + RET) * (1 + DLRET) - 1"
+  },
+  "in_universe_missing_returns": [
+    {
+      "DATE": "2003-01-13",
+      "PERMNO": 10324
+    },
+    {
+      "DATE": "2005-10-24",
+      "PERMNO": 10562
+    },
+    {
+      "DATE": "2002-06-26",
+      "PERMNO": 11042
+    },
+    {
+      "DATE": "2002-06-27",
+      "PERMNO": 11042
+    },
+    {
+      "DATE": "2002-06-28",
+      "PERMNO": 11042
+    },
+    {
+      "DATE": "2002-05-23",
+      "PERMNO": 11983
+    },
+    {
+      "DATE": "1994-05-25",
+      "PERMNO": 13901
+    },
+    {
+      "DATE": "1988-11-23",
+      "PERMNO": 15720
+    },
+    {
+      "DATE": "1994-03-25",
+      "PERMNO": 17778
+    },
+    {
+      "DATE": "1986-10-06",
+      "PERMNO": 21522
+    },
+    {
+      "DATE": "1985-03-01",
+      "PERMNO": 23210
+    },
+    {
+      "DATE": "1996-06-07",
+      "PERMNO": 23318
+    },
+    {
+      "DATE": "1985-02-20",
+      "PERMNO": 23705
+    },
+    {
+      "DATE": "1985-02-21",
+      "PERMNO": 23705
+    },
+    {
+      "DATE": "1986-06-30",
+      "PERMNO": 24803
+    },
+    {
+      "DATE": "1988-11-23",
+      "PERMNO": 25208
+    },
+    {
+      "DATE": "2001-04-05",
+      "PERMNO": 26294
+    },
+    {
+      "DATE": "2001-04-06",
+      "PERMNO": 26294
+    },
+    {
+      "DATE": "1989-07-07",
+      "PERMNO": 46754
+    },
+    {
+      "DATE": "1985-05-08",
+      "PERMNO": 61962
+    },
+    {
+      "DATE": "1988-10-19",
+      "PERMNO": 62148
+    },
+    {
+      "DATE": "1994-08-04",
+      "PERMNO": 75038
+    },
+    {
+      "DATE": "2015-06-09",
+      "PERMNO": 76614
+    },
+    {
+      "DATE": "2011-04-28",
+      "PERMNO": 76744
+    },
+    {
+      "DATE": "2015-05-12",
+      "PERMNO": 76744
+    },
+    {
+      "DATE": "2006-03-07",
+      "PERMNO": 76841
+    },
+    {
+      "DATE": "2006-03-08",
+      "PERMNO": 76841
+    },
+    {
+      "DATE": "2020-11-06",
+      "PERMNO": 76841
+    },
+    {
+      "DATE": "2001-10-02",
+      "PERMNO": 77274
+    },
+    {
+      "DATE": "2001-10-03",
+      "PERMNO": 77274
+    },
+    {
+      "DATE": "2002-08-06",
+      "PERMNO": 77274
+    },
+    {
+      "DATE": "1995-03-02",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-03",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-06",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-07",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-08",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-09",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "1995-03-10",
+      "PERMNO": 78864
+    },
+    {
+      "DATE": "2013-11-19",
+      "PERMNO": 87056
+    },
+    {
+      "DATE": "2016-07-21",
+      "PERMNO": 90664
+    }
+  ],
+  "universe_market_cap_reconstruction": {
+    "0": {
+      "meaning": "Use end-of-month m cap ranking for universe month m+0",
+      "months_compared": 444,
+      "exact_500_matches": 0,
+      "mean_intersection": 486.10135135135135,
+      "min_intersection": 452,
+      "per_month": [
+        {
+          "eval_month": "1985-01",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1985-02",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1985-03",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1985-04",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1985-05",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1985-06",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1985-07",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1985-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1985-09",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1985-10",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1985-11",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1985-12",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1986-01",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "1986-02",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1986-03",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1986-04",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1986-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1986-06",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1986-07",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1986-08",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1986-09",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1986-10",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1986-11",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1986-12",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1987-01",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "1987-02",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1987-03",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1987-04",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1987-05",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1987-06",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1987-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1987-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1987-09",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1987-10",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1987-11",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1987-12",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1988-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1988-02",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1988-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1988-04",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1988-05",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1988-06",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "1988-07",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "1988-08",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "1988-09",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "1988-10",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1988-11",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "1988-12",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1989-01",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1989-02",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "1989-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1989-04",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1989-05",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1989-06",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1989-07",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1989-08",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "1989-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1989-10",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1989-11",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1989-12",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "1990-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1990-02",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1990-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1990-04",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1990-05",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "1990-06",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1990-07",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1990-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1990-09",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1990-10",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1990-11",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "1990-12",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1991-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1991-02",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "1991-03",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1991-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1991-05",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1991-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1991-07",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1991-08",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1991-09",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1991-10",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1991-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1991-12",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1992-01",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1992-02",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1992-03",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1992-04",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1992-05",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1992-06",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1992-07",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1992-08",
+          "intersection_count": 495
+        },
+        {
+          "eval_month": "1992-09",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1992-10",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1992-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1992-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1993-01",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1993-02",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1993-03",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1993-04",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1993-05",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1993-06",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1993-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1993-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1993-09",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "1993-10",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1993-11",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1993-12",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1994-01",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1994-02",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1994-03",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1994-05",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-06",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-07",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-09",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-10",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1994-11",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1994-12",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "1995-01",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1995-02",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1995-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1995-04",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1995-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1995-06",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1995-07",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "1995-08",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1995-09",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1995-10",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1995-11",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1995-12",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1996-01",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "1996-02",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "1996-03",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1996-04",
+          "intersection_count": 477
+        },
+        {
+          "eval_month": "1996-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1996-06",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1996-07",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1996-08",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1996-09",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1996-10",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1996-11",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1996-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "1997-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1997-02",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1997-03",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1997-04",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1997-05",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1997-06",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1997-07",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "1997-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1997-09",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1997-10",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1997-11",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "1997-12",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1998-01",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1998-02",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1998-03",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "1998-04",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "1998-05",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "1998-06",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "1998-07",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1998-08",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1998-09",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1998-10",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "1998-11",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "1998-12",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1999-01",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1999-02",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "1999-03",
+          "intersection_count": 477
+        },
+        {
+          "eval_month": "1999-04",
+          "intersection_count": 476
+        },
+        {
+          "eval_month": "1999-05",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "1999-06",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "1999-07",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "1999-08",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "1999-09",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "1999-10",
+          "intersection_count": 471
+        },
+        {
+          "eval_month": "1999-11",
+          "intersection_count": 468
+        },
+        {
+          "eval_month": "1999-12",
+          "intersection_count": 470
+        },
+        {
+          "eval_month": "2000-01",
+          "intersection_count": 474
+        },
+        {
+          "eval_month": "2000-02",
+          "intersection_count": 452
+        },
+        {
+          "eval_month": "2000-03",
+          "intersection_count": 456
+        },
+        {
+          "eval_month": "2000-04",
+          "intersection_count": 463
+        },
+        {
+          "eval_month": "2000-05",
+          "intersection_count": 473
+        },
+        {
+          "eval_month": "2000-06",
+          "intersection_count": 470
+        },
+        {
+          "eval_month": "2000-07",
+          "intersection_count": 474
+        },
+        {
+          "eval_month": "2000-08",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2000-09",
+          "intersection_count": 477
+        },
+        {
+          "eval_month": "2000-10",
+          "intersection_count": 470
+        },
+        {
+          "eval_month": "2000-11",
+          "intersection_count": 463
+        },
+        {
+          "eval_month": "2000-12",
+          "intersection_count": 474
+        },
+        {
+          "eval_month": "2001-01",
+          "intersection_count": 473
+        },
+        {
+          "eval_month": "2001-02",
+          "intersection_count": 473
+        },
+        {
+          "eval_month": "2001-03",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "2001-04",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2001-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2001-06",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "2001-07",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "2001-08",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2001-09",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2001-10",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2001-11",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2001-12",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2002-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2002-02",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2002-03",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2002-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2002-05",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2002-06",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2002-07",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2002-08",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2002-09",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2002-10",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2002-11",
+          "intersection_count": 476
+        },
+        {
+          "eval_month": "2002-12",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2003-01",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2003-02",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2003-03",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2003-04",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2003-05",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2003-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2003-07",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2003-08",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2003-09",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2003-10",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2003-11",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2003-12",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2004-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2004-02",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2004-03",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2004-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2004-05",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2004-06",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2004-07",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2004-08",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2004-09",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2004-10",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2004-11",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2004-12",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2005-01",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2005-02",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2005-03",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2005-04",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2005-05",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2005-06",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2005-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2005-08",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2005-09",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2005-10",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2005-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2005-12",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2006-01",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2006-02",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2006-03",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2006-04",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2006-05",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2006-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2006-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2006-08",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2006-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2006-10",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2006-11",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2006-12",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2007-01",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2007-02",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2007-03",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2007-04",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2007-05",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2007-06",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2007-07",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2007-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2007-09",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2007-10",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2007-11",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2007-12",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2008-01",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2008-02",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2008-03",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2008-04",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2008-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2008-06",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2008-07",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "2008-08",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2008-09",
+          "intersection_count": 469
+        },
+        {
+          "eval_month": "2008-10",
+          "intersection_count": 464
+        },
+        {
+          "eval_month": "2008-11",
+          "intersection_count": 469
+        },
+        {
+          "eval_month": "2008-12",
+          "intersection_count": 476
+        },
+        {
+          "eval_month": "2009-01",
+          "intersection_count": 478
+        },
+        {
+          "eval_month": "2009-02",
+          "intersection_count": 477
+        },
+        {
+          "eval_month": "2009-03",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2009-04",
+          "intersection_count": 469
+        },
+        {
+          "eval_month": "2009-05",
+          "intersection_count": 479
+        },
+        {
+          "eval_month": "2009-06",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2009-07",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2009-08",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2009-09",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2009-10",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2009-11",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2009-12",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2010-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2010-02",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2010-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2010-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2010-05",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2010-06",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2010-07",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2010-08",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2010-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2010-10",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2010-11",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2010-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2011-01",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2011-02",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2011-03",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2011-04",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2011-05",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2011-06",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2011-07",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2011-08",
+          "intersection_count": 481
+        },
+        {
+          "eval_month": "2011-09",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2011-10",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2011-11",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2011-12",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2012-01",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2012-02",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2012-03",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2012-04",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2012-05",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2012-06",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2012-07",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2012-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2012-09",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2012-10",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2012-11",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2012-12",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2013-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2013-02",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2013-03",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2013-04",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "2013-05",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "2013-06",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2013-07",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2013-08",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2013-09",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2013-10",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2013-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2013-12",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2014-01",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2014-02",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2014-03",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2014-04",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2014-05",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2014-06",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2014-07",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2014-08",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "2014-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2014-10",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2014-11",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2014-12",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2015-01",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2015-02",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2015-03",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2015-04",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2015-05",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2015-06",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "2015-07",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2015-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2015-09",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2015-10",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2015-11",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2015-12",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2016-01",
+          "intersection_count": 480
+        },
+        {
+          "eval_month": "2016-02",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2016-03",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2016-04",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2016-05",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2016-06",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2016-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2016-08",
+          "intersection_count": 495
+        },
+        {
+          "eval_month": "2016-09",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2016-10",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2016-11",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2016-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2017-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2017-02",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2017-03",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2017-04",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2017-05",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2017-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2017-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2017-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2017-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2017-10",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2017-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2017-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2018-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2018-02",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2018-03",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2018-04",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2018-05",
+          "intersection_count": 494
+        },
+        {
+          "eval_month": "2018-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2018-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2018-08",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2018-09",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2018-10",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2018-11",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2018-12",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2019-01",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2019-02",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2019-03",
+          "intersection_count": 493
+        },
+        {
+          "eval_month": "2019-04",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2019-05",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2019-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2019-07",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2019-08",
+          "intersection_count": 483
+        },
+        {
+          "eval_month": "2019-09",
+          "intersection_count": 486
+        },
+        {
+          "eval_month": "2019-10",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2019-11",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2019-12",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2020-01",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2020-02",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2020-03",
+          "intersection_count": 473
+        },
+        {
+          "eval_month": "2020-04",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2020-05",
+          "intersection_count": 492
+        },
+        {
+          "eval_month": "2020-06",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2020-07",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2020-08",
+          "intersection_count": 491
+        },
+        {
+          "eval_month": "2020-09",
+          "intersection_count": 487
+        },
+        {
+          "eval_month": "2020-10",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2020-11",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2020-12",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2021-01",
+          "intersection_count": 485
+        },
+        {
+          "eval_month": "2021-02",
+          "intersection_count": 482
+        },
+        {
+          "eval_month": "2021-03",
+          "intersection_count": 484
+        },
+        {
+          "eval_month": "2021-04",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2021-05",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2021-06",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2021-07",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2021-08",
+          "intersection_count": 488
+        },
+        {
+          "eval_month": "2021-09",
+          "intersection_count": 489
+        },
+        {
+          "eval_month": "2021-10",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2021-11",
+          "intersection_count": 490
+        },
+        {
+          "eval_month": "2021-12",
+          "intersection_count": 486
+        }
+      ]
+    },
+    "1": {
+      "meaning": "Use end-of-month m cap ranking for universe month m+1",
+      "months_compared": 444,
+      "exact_500_matches": 444,
+      "mean_intersection": 500.0,
+      "min_intersection": 500,
+      "per_month": [
+        {
+          "eval_month": "1985-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1985-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1986-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1987-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1988-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1989-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1990-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1991-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1992-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1993-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1994-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1995-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1996-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1997-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1998-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "1999-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2000-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2001-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2002-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2003-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2004-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2005-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2006-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2007-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2008-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2009-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2010-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2011-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2012-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2013-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2014-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2015-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2016-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2017-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2018-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2019-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2020-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-01",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-02",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-03",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-04",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-05",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-06",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-07",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-08",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-09",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-10",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-11",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2021-12",
+          "intersection_count": 500
+        },
+        {
+          "eval_month": "2022-01",
+          "intersection_count": 500
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Inputs do not contain data-construction source code, complete original CRSP universe, or accounting release timestamps.",
+    "Month-end top-500 reconstruction is conditional on the supplied 2,203-stock union, not a full independent CRSP universe audit.",
+    "Ret_D1 timing is tested empirically; other characteristics need source construction code for complete point-in-time certification.",
+    "A zero rank value may mean median exposure or an already imputed missing characteristic; original missingness masks are absent.",
+    "Raw total/delisting-adjusted returns and risk-free rates are separate: subtract rf only once when excess returns are needed."
+  ]
+}
