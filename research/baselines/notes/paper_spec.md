@@ -1,7 +1,5 @@
 # 论文定义与复现边界
 
-主来源：用户提供的 `2510.11616v1.pdf`，共 9 页；下文页码是 PDF 页序号。关键页 4、5、6、9 已渲染核对公式、脚注和表格。论文在线版本：[arXiv v1](https://arxiv.org/html/2510.11616v1)。用户提供的 Claude 对话为架构评论，不是实验指令，不替代论文定义。
-
 ## 1. 两个目标模型
 
 §4.2（第 5 页）明确列出三个模型：Attention Factors、PCA Factors、PCA+OU Thresh。因此本次排除 Attention 后，目标为 **PCA + LongConv** 和 **PCA + OU Threshold**。IPCA 只在相关工作和方法背景中出现，不是本文 Table 2 的独立基准模型。
@@ -78,8 +76,5 @@ Attention 主文第 2 页引言称 explained correlation，第 2–3 页方法�
 
 这些是论文结果，不是本项目新运行结果。对照时必须保留两者的样本、实现和数据差异。
 
-## 8. 公开实现检索结果
 
-[第一作者研究主页](https://elliotepstein.net/) 的 Attention Factors 条目只链接论文和幻灯片，未列出本论文代码；其 LongConv 项目另有源码。这只能说明本次查到的主页没有代码链接，不能证明代码在全网不存在。
 
-[DLSA 官方 GitHub](https://github.com/gregzanotti/dlsa-public) 可用于核对其参考实现，但不是 Attention Factors 作者代码。[Pelger 数据代码页面](https://mpelger.people.stanford.edu/data-and-code) 另链接 DLSA Dropbox。Dropbox 未取得可读目录，本次未据此声称检视过该更新版本。
