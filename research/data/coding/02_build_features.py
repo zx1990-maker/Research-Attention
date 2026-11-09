@@ -16,11 +16,17 @@
     wrds/ff_daily.sas7bdat            Fama-French 日度因子与无风险利率
 
 输出：
-    data/features.parquet   一行 = (股票, 交易日 t)，只包含 t 日在前 500 股票池中的股票
+    data/features.parquet   一行 = (股票, 交易日 t)，包含两类行：
+        (a) t 日在前 500 股票池中的股票（in_universe = 1）
+        (b) 下个月将进入股票池的股票，在进入前 PRE_WINDOW 个交易日内的行（in_universe = 0）。
+            用途：算过去 30 天残差时，每天要用当天的特征算当天的 ω^ε，新进股票在进池前
+            那些天也需要特征（见 attention factor/04 的说明）。
         DATE, PERMNO       主键
         RET_ADJ            t 日收益（预测目标 R_t）
-        <39 个特征名>      只用 t-1 日及以前的信息，截面排序分位数，取值 [-0.5, 0.5]
-        med_<特征名>       该特征当天的截面中位数（原始量纲）
+        in_universe        t 日是否在股票池中
+        <39 个特征名>      只用 t-1 日及以前的信息，相对于 t 日股票池 500 只的排序分位数，[-0.5, 0.5]
+                           （股票池外的行按"插入股票池后的位置"计算，超出范围的取 ±0.5）
+        med_<特征名>       该特征当天在股票池内的截面中位数（原始量纲）
         rf                 t-1 日无风险利率
       => 每一行就是 (X_{t-1}, R_t)，后续模型直接用，不用再错位。
       parquet 元数据里存了特征分组（feature_groups），供 Table 3 消融实验使用。
@@ -72,6 +78,8 @@ FEATURE_GROUPS = {
 }
 CHARS = [c for g in FEATURE_GROUPS.values() for c in g]
 assert len(CHARS) == 39
+
+PRE_WINDOW = 60   # 新进股票：保留进入股票池前 60 个交易日的特征（回看窗口 30 天，留余量）
 
 # ---------------------------------------------------------------------------
 # 特征说明（写入 log）
@@ -381,17 +389,16 @@ for c in W:
     W[c] = W[c].reindex(index=dates, columns=permnos)
 
 R = W["RET_ADJ"].astype("float64")
-U = W.pop("in_universe").fillna(0).values.astype(bool)
+U_raw = W.pop("in_universe")
+E = U_raw.notna().values                      # 该 (日, 股票) 在日度面板中有记录
+U = U_raw.fillna(0).values.astype(bool)       # 在股票池中
+del U_raw
 
 ff, _ = pyreadstat.read_sas7bdat(FF_FILE)
 ff["date"] = to_datetime(ff["date"])
 ff = ff.set_index("date").reindex(dates)
 assert ff["mktrf"].notna().all()
 rf = ff["rf"].values
-
-# 股票池内的 (t, 股票) 位置 —— 最终输出的行
-ti, si = np.nonzero(U)
-N_ROWS = len(ti)
 
 # 月份索引：starts[m] = 第 m 个月第一个交易日的位置；mend[m] = 最后一个交易日的位置
 per = dates.to_period("M")
@@ -400,8 +407,20 @@ starts = np.flatnonzero(np.r_[True, mcode[1:] != mcode[:-1]])
 mend = np.r_[starts[1:] - 1, T - 1]
 months = per[starts]
 M = len(starts)
+
+# 输出的行：(a) 股票池内；(b) 第 m 月股票池中的股票，在第 m 月开始前 PRE_WINDOW 个交易日内的行
+U_month = np.logical_or.reduceat(U, starts, axis=0)          # (M, S) 第 m 月在股票池中
+NEED = U.copy()
+for m_ in range(M):
+    s0 = max(starts[m_] - PRE_WINDOW, 0)
+    NEED[s0:starts[m_], U_month[m_]] = True
+NEED &= E
+ti, si = np.nonzero(NEED)
+N_ROWS = len(ti)
+IS_U = U[ti, si]
 row_m = mcode[ti]                  # 每个输出行所在月份
-print(f"  {T} 个交易日 × {S} 只股票，{M} 个月，股票池行数 {N_ROWS:,} {tick()}")
+print(f"  {T} 个交易日 × {S} 只股票，{M} 个月，输出行数 {N_ROWS:,}"
+      f"（股票池内 {IS_U.sum():,}，进池前 {(~IS_U).sum():,}）{tick()}")
 
 
 def msum(a):
@@ -681,22 +700,47 @@ print(f"  完成 {tick()}")
 # Part 4  缺失值填补 + 截面排序 + 截面中位数 + rf -> 79 维
 # ===========================================================================
 print("Part 4  填补、排序 -> 79 维")
-X = pd.DataFrame({k: raw[k] for k in CHARS})
-del raw
 DATE = dates.values[ti]
 PERMNO = permnos.values[si]
 year = pd.DatetimeIndex(DATE).year.values
-sel90 = year >= 1990
-coverage = X[sel90].notna().mean()                    # 填中位数之前的覆盖率（1990+）
-q_tbl = X[sel90].quantile([0.01, 0.5, 0.99]).T
+sel90 = (year >= 1990) & IS_U                         # 统计只看股票池内的行
+Xu90 = pd.DataFrame({k: raw[k][sel90] for k in CHARS})
+coverage = Xu90.notna().mean()                        # 填中位数之前的覆盖率（1990+）
+q_tbl = Xu90.quantile([0.01, 0.5, 0.99]).T
+del Xu90
 
-med = X.groupby(DATE).transform("median")             # 截面中位数（原始量纲）
-X = X.fillna(med)
-rk = X.groupby(DATE).rank(method="average")
-cnt = X.notna().groupby(DATE).transform("sum")
-Xr = ((rk - 1) / (cnt - 1) - 0.5).fillna(0.0).astype("float32")   # [-0.5, 0.5]
-del rk, cnt, X
-med = med.astype("float32").add_prefix("med_")
+# 截面中位数：每天只用股票池内的股票（T × 39 的小表）
+day_u = ti[IS_U]
+MED = pd.DataFrame({k: raw[k][IS_U] for k in CHARS}).groupby(day_u).median()
+MED = MED.reindex(range(T)).values.astype("float32")    # (T, 39)，第 d 行 = 第 d 天的中位数
+
+# 截面排序：相对于当天股票池内的分布
+#   股票池内的股票：平均秩 r（并列取平均），q = (r-1)/(n-1) - 0.5，与原来的做法完全一致
+#   股票池外的股票：把它"插入"当天股票池，q = (#小于 + #等于/2) / n - 0.5，超出范围自然为 ±0.5
+Xr = np.zeros((N_ROWS, len(CHARS)), dtype="float32")
+n_u = np.bincount(day_u, minlength=T)
+for j, k in enumerate(CHARS):
+    v = raw.pop(k).astype("float64")
+    v = np.where(np.isnan(v), MED[ti, j], v)            # 缺失 -> 当天股票池中位数
+    ok = ~np.isnan(v)                                   # 当天整列缺失时仍为 NaN
+    g = np.full(N_ROWS, -1, dtype="int64")
+    g[ok] = np.unique(v[ok], return_inverse=True)[1]    # 全局"值的名次"，保持大小顺序
+    G = int(g.max()) + 2
+    key = ti.astype("int64") * G + g
+    ukey = np.sort(key[IS_U & ok])
+    day_start = np.searchsorted(ukey, np.arange(T, dtype="int64") * G, side="left")
+    less = np.searchsorted(ukey, key, side="left") - day_start[ti]
+    leq = np.searchsorted(ukey, key, side="right") - day_start[ti]
+    eq = leq - less
+    n = n_u[ti].astype("float64")
+    with np.errstate(divide="ignore", invalid="ignore"):
+        q_in = (less + (eq - 1) / 2.0) / (n - 1) - 0.5
+        q_out = (less + eq / 2.0) / n - 0.5
+    q = np.where(IS_U, q_in, q_out)
+    q = np.where(ok & np.isfinite(q), q, 0.0)           # 整天缺失的特征记 0
+    Xr[:, j] = q.astype("float32")
+del raw
+Xr = pd.DataFrame(Xr, columns=CHARS)
 print(f"  完成 {tick()}")
 
 # ===========================================================================
@@ -705,31 +749,46 @@ print(f"  完成 {tick()}")
 print("Part 5  数据检查")
 # 泄露检查：特征（t-1 信息）与 t 日收益的截面秩相关（IC）。
 # 如果误用了 t 日信息，Ret_D1 的 IC 会接近 1；正常应该很小。
-yr = pd.Series(RET_T).groupby(DATE).rank(pct=True).values - 0.5
+yr = pd.Series(RET_T).where(IS_U).groupby(DATE).rank(pct=True).values - 0.5
 ok_y = np.isfinite(yr) & sel90
 Xs, ys, ds = Xr[ok_y], yr[ok_y], DATE[ok_y]
 num = Xs.mul(ys, axis=0).groupby(ds).mean()
 den = np.sqrt((Xs ** 2).groupby(ds).mean().mul(pd.Series(ys ** 2).groupby(ds).mean().values, axis=0))
 ic = (num / den).mean()
 del Xs, num, den
-med_missing_90 = med[sel90].isna().any()
-n_per_day = pd.Series(DATE).value_counts()
+d90 = np.flatnonzero(dates.year >= 1990)
+med_missing_90 = pd.Series(np.isnan(MED[d90]).any(0), index=["med_" + k for k in CHARS])
+n_per_day = pd.Series(DATE[IS_U]).value_counts()
+# 股票池外的行：排序值是否落在 [-0.5, 0.5]，以及取到边界的比例
+out_rows = ~IS_U
+out_at_edge = (np.abs(Xr.values[out_rows]) >= 0.5 - 1e-6).mean() if out_rows.any() else 0.0
+out_range_ok = bool((np.abs(Xr.values) <= 0.5 + 1e-6).all())
 
 # ===========================================================================
 # Part 6  保存 + 写 log
 # ===========================================================================
-out = pd.concat([pd.DataFrame({"DATE": DATE, "PERMNO": PERMNO, "RET_ADJ": RET_T}),
-                 Xr, med, pd.DataFrame({"rf": RF_LAG})], axis=1)
-del Xr, med
 feat_cols = CHARS + ["med_" + k for k in CHARS] + ["rf"]
 assert len(feat_cols) == 79
-
-tbl = pa.Table.from_pandas(out, preserve_index=False)
-meta = dict(tbl.schema.metadata or {})
-meta[b"feature_groups"] = json.dumps(FEATURE_GROUPS).encode()
-meta[b"feature_cols"] = json.dumps(feat_cols).encode()
-tbl = tbl.replace_schema_metadata(meta)
-pq.write_table(tbl, OUT_FILE, compression="zstd", row_group_size=500_000)
+CHUNK = 1_000_000
+writer = None
+for a in range(0, N_ROWS, CHUNK):
+    b = min(a + CHUNK, N_ROWS)
+    part = pd.concat([
+        pd.DataFrame({"DATE": DATE[a:b], "PERMNO": PERMNO[a:b], "RET_ADJ": RET_T[a:b],
+                      "in_universe": IS_U[a:b].astype("int8")}),
+        Xr.iloc[a:b].reset_index(drop=True),
+        pd.DataFrame(MED[ti[a:b]], columns=["med_" + k for k in CHARS]),
+        pd.DataFrame({"rf": RF_LAG[a:b]})], axis=1)
+    tbl = pa.Table.from_pandas(part, preserve_index=False)
+    if writer is None:
+        meta = dict(tbl.schema.metadata or {})
+        meta[b"feature_groups"] = json.dumps(FEATURE_GROUPS).encode()
+        meta[b"feature_cols"] = json.dumps(feat_cols).encode()
+        schema = tbl.schema.with_metadata(meta)
+        writer = pq.ParquetWriter(OUT_FILE, schema, compression="zstd")
+    writer.write_table(tbl.cast(schema), row_group_size=500_000)
+writer.close()
+n_out_cols = 4 + len(feat_cols)
 size_mb = os.path.getsize(OUT_FILE) / 1e6
 
 GROUP_CN = {"past_returns": "过去收益", "trading_frictions": "交易摩擦", "value": "价值",
@@ -780,6 +839,11 @@ w("     characteristics and the risk free rate, which results in the dimension o
 w("     中位数保留原始量纲。[CPZ] 对中位数序列做了平稳化变换（如对数差分），[ATT] 没有提，")
 w("     这里不做变换，留到建模阶段统一标准化。无风险利率用 FF 日度 rf（t-1 日）。")
 w("  7. 收益：CRSP 日收益并入退市收益（第 1 步），市场与 FF3 因子用 ff_daily。")
+w(f"  8. 进池前的行（in_universe = 0）：第 m 月股票池中的股票，在第 m 月开始前 {PRE_WINDOW} 个交易日内")
+w("     的行也输出。特征的计算方法完全相同；排序值相对于当天股票池 500 只的分布计算")
+w("     （把该股票\"插入\"当天股票池后的分位位置），截面中位数也用当天股票池的。")
+w("     用途：环节④ 每天用当天的 ω^ε 计算当天的残差（[19] 的做法），新进股票在进池前")
+w("     那些天也需要特征。这一类行原文未涉及，属于实现上的需要。")
 w("")
 w("三、39 个特征逐条说明")
 w("  （覆盖率 = 1990 年以后股票池内、用最近观测值填补后、用截面中位数填补前的非缺失比例）")
@@ -801,8 +865,11 @@ for gname, feats in FEATURE_GROUPS.items():
 w("")
 w("四、运行结果")
 w(f"  输出文件: {OUT_FILE}（{size_mb:.0f} MB）")
-w(f"  行数: {len(out):,}，列数: {out.shape[1]} = DATE, PERMNO, RET_ADJ + 79 维特征")
-w(f"  日期: {pd.Timestamp(DATE.min()).date()} -> {pd.Timestamp(DATE.max()).date()}；"
+w(f"  行数: {N_ROWS:,}（股票池内 {IS_U.sum():,}，进池前 {(~IS_U).sum():,}），"
+  f"列数: {n_out_cols} = DATE, PERMNO, RET_ADJ, in_universe + 79 维特征")
+w(f"  进池前的行：排序值全部在 [-0.5, 0.5] 内: {'是' if out_range_ok else '否'}；"
+  f"取到边界 ±0.5 的比例 {out_at_edge:.1%}（这些股票当时多为市值较小的股票）")
+w(f"  日期: {pd.Timestamp(DATE.min()).date()} -> {pd.Timestamp(DATE.max()).date()}；股票池内"
   f"每天股票数 {n_per_day.min()}-{n_per_day.max()}")
 w(f"  Compustat 年报（链接有效、属于样本股票）: {n_acct:,} 条；"
   f"股票池行中匹配到年报的比例（1990+）: {acct_match[sel90].mean():.1%}")

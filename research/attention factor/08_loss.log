@@ -1,0 +1,94 @@
+==============================================================================
+环节 ⑧：损失函数 —— 检查
+==============================================================================
+
+一、原文
+  [ATT] 3.3 节: "Our objective function maximizes the net Sharpe ratio of the arbitrage portfolio and
+        the explained variance of the factors. The tradeoff between these two objectives is selected
+        optimally on the validation data. Including the explained variance is necessary for
+        identification, and empirically improves the performance."
+        max  (R̄^port_net - R_f) / sqrt((1/T) Σ_t (R^port_{t,net} - R̄^port_net)²)
+             + λ_Var · (1/N) Σ_i (1 - Var(e_i)/Var(R_i)),   subject to ‖ω_t‖₁ = 1
+        "R_f is the risk-free rate. The learned parameters that determine ω^F and ω^port are the
+        query matrix Q, the embedding matrix W^K, and the LongConv model parameters θ."
+  [ATT] 附录 B Table 4: λ_Var = 100
+  [19] 附录 D: "we estimate the parameters ... by replacing the mean and variance by their
+        annualized sample counterpart over a training set"
+        脚注 12: μ = 252/T Σ R_t，σ = sqrt(252/T Σ (R_t - μ)²)
+
+二、实现（af_model.py）
+  1. sharpe_annualized(r_net, rf) = √252 × (mean(R_net) - mean(rf)) / std(R_net)
+     - 分子减 R_f、分母用 1/T：照 [ATT] 公式。
+     - 乘 √252：照 [19] 附录 D（[ATT] 公式本身没写年化，但它说训练方式沿用 [19]，
+       而且 λ_Var = 100 是相对年化 Sharpe 的大小定的，见下面第五部分）。
+     - R_f：Fama-French 日度 rf（与 data/coding/02 计算特征用的是同一个文件），
+       取这段时间的均值。R_t 用的是原始收益（不是超额收益），与 [ATT] 3 节 Notation 一致。
+  2. explained_variance(eps, R, valid, stock_id) = (1/N) Σ_i (1 - Var(ε_i)/Var(R_i))
+     - Var 是一个 batch 内每只股票的时间序列方差；ε 是环节 ④ 的样本外残差 ε_t = ω^ε_{t-1}R_t。
+     - 自行设定：按 PERMNO 汇总（batch 跨月，同一只股票在不同月块的位置不同）；
+       只计入 batch 内至少 10 天有数据的股票；用 1/n 的方差。
+  3. af_loss = -(Sharpe + λ_Var × EV)：神经网络做最小化，所以取负号。
+  4. AttentionFactorModel：W_K、Q、LongConv 放在一个模块里，就是 [ATT] 说的全部可学习参数。
+  5. run_blocks(model, blocks)：按时间顺序跑若干个月块，拼成一段连续交易日；
+     成本按 PERMNO 对齐、精确计算（环节 ⑦），第一块从空仓开始。
+
+三、Part 1 数据
+  hist_rf.npy  (8127,)  float32  与 hist_dates.npy 对齐的日无风险利率，缺失 0 天
+
+四、检查结果：8 / 8 项通过
+  （模型 K = 8，参数随机初始化，λ_ridge = 1e-05，1998-01 - 1998-06，124 个交易日 ≈ [19] 的一个 125 天 batch）
+
+  [通过] 1 Sharpe = √252 × (R̄_net - R_f) / sqrt((1/T)Σ(R_net - R̄_net)²)（numpy 手算）
+         本实现 -0.91872，手算 -0.91872
+  [通过] 2 无风险利率按日期对齐到 Fama-French 日度 rf
+         hist_dates 8127 天缺失 0 天；本段 124 天 rf 均值 2.000 个基点/天（年化 5.04%）
+  [通过] 3 解释方差 = pandas 按 PERMNO 分组计算的 (1/N)Σ(1 - Var(e_i)/Var(R_i))
+         本实现 0.153663，pandas 0.153663，N = 550 只股票
+  [通过] 4 边界：残差 = 收益时 EV = 0；残差 = 0 时 EV = 1
+         EV(ε=R) = 0.0e+00，EV(ε=0) = 1.000000
+  [通过] 5 loss = -(Sharpe + 100 × EV)
+         loss -14.4476 = -(-0.9187 + 100 × 0.1537)
+  [通过] 6 Sharpe 项的梯度传到 W_K、Q、LongConv
+         W_K 5.2e+00，Q 1.6e+00，LongConv 3.5e+01
+  [通过] 7 解释方差项只影响因子（W_K、Q），对 LongConv 梯度为 0
+         W_K 7.1e+00，Q 2.5e+00，LongConv 0.0e+00
+  [通过] 8 试跑 10 步 Adam（lr = 0.003）：同一 batch 上损失下降
+         loss -14.448 -> -22.852
+
+  说明：
+    检查 3：这 124 天里出现过的股票按 PERMNO 汇总；6 个月都在池子里的 460 只（124 天数据），
+      不足 10 天被排除的 1 只。
+    检查 7：解释方差只取决于残差 ε = ω^ε R，而 ω^ε 只由 W_K、Q 决定，和 LongConv 无关，
+      所以这一项只推动因子去解释收益；Sharpe 项三组参数都推动。这正是原文说的
+      “解释方差项对识别（identification）是必要的”：没有它，因子只为 Sharpe 服务，可以变成任何组合。
+
+五、为什么 Sharpe 必须年化（截图里提到的问题）
+  随机初始化时这 124 天：日 Sharpe = -0.0579，年化 Sharpe = -0.919（差 √252 ≈ 15.9 倍）；
+  解释方差 EV = 0.1537，λ_Var × EV = 15.37
+  对 (W_K, Q) 的梯度大小之比  ‖∇(λ_Var·EV)‖ / ‖∇Sharpe‖：
+    Sharpe 年化：1.37
+    Sharpe 不年化：21.7（解释方差项相对放大 15.9 倍，几乎完全主导因子的学习）
+  两个梯度方向的余弦相似度 +0.106（两个目标对因子的要求不同，需要权衡）
+  所以必须和 [19] 一样用年化 Sharpe，λ_Var = 100 才是原文的权衡。
+
+六、试跑 10 步 Adam（lr = 0.003，无权重衰减；只验证能训练，不是正式训练，正式训练在环节 ⑨）
+  每步: 训练模式（dropout 打开）前向 6 个月块 + 反向 + 更新；每步之后在评估模式下重算：
+    步    loss       年化净Sharpe    EV       平均日换手
+    0      -14.448      -0.919      0.1537    0.322
+    1      -15.243      -0.756      0.1600    0.337
+    2      -16.305      -0.448      0.1675    0.346
+    3      -17.460      -0.025      0.1748    0.353
+    4      -18.536      +0.437      0.1810    0.359
+    5      -19.470      +0.896      0.1857    0.366
+    6      -20.277      +1.342      0.1893    0.373
+    7      -21.001      +1.783      0.1922    0.380
+    8      -21.678      +2.225      0.1945    0.384
+    9      -22.302      +2.647      0.1966    0.385
+    10     -22.852      +3.016      0.1984    0.379
+  每步耗时 2.90s（124 天）。一个 8 年训练窗口约 2000 天 = 16 个 batch，
+  1 个 epoch 约 47s，30 个 epoch 约 23 分钟（K = 8）。
+
+七、下一环节
+  环节 ⑨：训练循环（8 年滚动窗口、每年重训、30 个 epoch、125 天一个 batch、验证集选 λ_ridge）
+
+总耗时 36s

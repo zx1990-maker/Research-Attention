@@ -1,0 +1,72 @@
+==============================================================================
+环节 ⑦：交易成本和净收益 —— 检查
+==============================================================================
+
+一、原文
+  [ATT] 3.3 节 "Arbitrage Trading Objective": "We measure transaction costs as in [19], which is
+        common in this literature:
+        cost(ω_t, ω_{t-1}) = 0.0005 × ‖ω_t - ω_{t-1}‖₁ + 0.0001 × ‖max(-ω_t, 0)‖₁,
+        The first penalty represents a transaction cost of 5 basis points per transaction, whereas
+        the second one is a shorting cost of 1 basis point. The portfolio net return is then
+        calculated as: R^port_{t,net} = R^port_t - cost(ω_t, ω_{t-1})"
+  [19] III.J 节: "we subtract the market-friction costs cost(w^R_{t-1}, w^R_{t-2}) =
+        0.0005‖w^R_{t-1} - w^R_{t-2}‖_{L1} + 0.0001‖min(w^R_{t-1}, 0)‖_{L1} from the portfolio returns and
+        use these net portfolio returns in the optimization problem ... where w^R_{t-1} is the
+        strategy's allocation weight vector at time t-1"
+
+二、实现（af_model.py）
+  1. trading_costs(w, w_prev, exit_l1): 公式照原文。TC_TRADE = 0.0005，TC_SHORT = 0.0001。
+  2. 时间约定（依据 [19] III.J 节）: t 日净收益 = ω_{t-1}ᵀR_t - cost(ω_{t-1}, ω_{t-2})，
+     即 t-1 日收盘调仓到 ω_{t-1} 的成本，从持有 ω_{t-1} 在 t 日赚的收益里扣。
+     [ATT] 写成 cost(ω_t, ω_{t-1})，只是下标整体平移，含义相同。
+  3. 按 PERMNO 对齐（align_prev_weights）:
+     - 前后两天都在池子里的股票：对应相减
+     - 今天新进池子的股票：昨天权重记为 0（新建仓位，算换手）
+     - 昨天在、今天不在池子里的股票：今天权重为 0，它的 |ω_{t-1}| 计入换手（清仓，算换手）
+     同一个月块内位置固定对应同一只股票，只有月初第一天需要对齐（block_costs）。
+  4. 第一天从空仓开始时换手 = 1（自行设定；样本外评估从 1998-01 第一天建仓）。
+  5. 原文与 [19] 都没有按前一天的收益调整 ω_{t-2}（价格变动造成的权重漂移），这里也不调整。
+  6. 训练时的处理（留到环节 ⑨）: [19] 附录 D 说训练时用“上一个 epoch 的权重”近似 ω_{t-2}，
+     原因是它的配置函数把上一期权重当输入，没法并行。[ATT] 的 ω_{t-1} 不依赖 ω_{t-2}，
+     一个 batch 内所有天的 ω 可以一次并行算出来，batch 内的成本可以精确计算；
+     只有 batch 第一天要用前一天的权重，那时再决定怎么取。
+
+三、检查结果：8 / 8 项通过
+  （模型 K = 8，参数随机初始化，λ_ridge = 1e-05，1998-01 与 1998-02 两个块，共 39 个交易日）
+
+  [通过] 1 cost = 0.0005‖ω_t-ω_{t-1}‖₁ + 0.0001‖max(-ω_t,0)‖₁（逐天手算）
+         最大差 0.0e+00
+  [通过] 2 从空仓开始的第一天：换手 = ‖ω‖₁ = 1
+         换手 1.000000
+  [通过] 3 同一月内：按 PERMNO 对齐后与原权重相同，没有离开股票池的仓位
+         最大差 0.0e+00，离开 0.0e+00
+  [通过] 4 月初换股票池：换手 = pandas 按 PERMNO 外连接后的 Σ|ω_t - ω_{t-1}|
+         1998-02-02：本实现 0.452692，pandas 0.452692
+  [通过] 5 直接按“第几个位置”相减的换手与正确值不同（说明必须对齐）
+         按位置 1.1080，按 PERMNO 0.4527
+  [通过] 6 做空部分 Σmax(-ω,0) = (‖ω‖₁ - Σω)/2
+         最大差 4.8e-08；做空部分均值 0.4886
+  [通过] 7 净收益 = R^port - cost，天数一致（浮点舍入 < 1e-15 视为 0）
+         39 天，R^port - R_net - cost 最大 8.1e-19
+  [通过] 8 梯度从成本传回 W_K、Q、LongConv（训练时模型会学着降低换手）
+         W_K 6.3e-03，Q 1.8e-03，LongConv 卷积核 1.3e-02，解码层 1.5e-01
+
+  1998-01 -> 1998-02 的股票池调整：留下 485 只，离开 15 只，新进 15 只；
+    离开的股票在 1 月最后一天的 Σ|ω| = 0.0631（计入 2 月第一天的换手）
+    两个月第 k 个位置不是同一只股票的有 390 个（股票按 PERMNO 排序，一只进出就会让后面的位置错开），
+    这就是检查 5 按位置相减会出错的原因。
+  全样本 1990-01 - 2021-12：每月新进股票池 5-48 只，平均 14.1 只
+
+四、随机初始化下的成本量级（未训练，只看量级；不含从空仓开始的第一天）
+  每日换手 ‖ω_t - ω_{t-1}‖₁：均值 0.322，范围 [0.175, 0.453]（上限是 2：全部卖掉再全部反向买入）
+  每日成本：均值 2.10 个基点；年化成本 5.3%
+  每日组合收益（扣成本前）：均值 +2.79 个基点，标准差 38.0 个基点
+  随机初始化的 LongConv 输出跟着残差窗口每天变化，换手很高；训练目标里扣了成本，
+  模型要学会少换手。[ATT] 第 1 节: "The key issue in a two-step approach is that the factors cannot
+  adjust to reduce trading costs for arbitrage strategies. For example, PCA factors have high turnover
+  and large short positions, which diminish net performance."
+
+五、下一环节
+  环节 ⑧：损失函数 = -(年化净 Sharpe) - λ_Var × 解释方差，λ_Var = 100
+
+总耗时 3s

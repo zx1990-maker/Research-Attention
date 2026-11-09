@@ -1,0 +1,95 @@
+==============================================================================
+环节 ④：过去 30 天的残差 —— 数据整理与检查
+==============================================================================
+
+一、原文
+  [ATT] 3.3 节 "Arbitrage Portfolio": "The arbitrage portfolio weight function depends on the
+        time-series signals that we extract with LongConv from the past s residuals ε_{i,(t-s,t-1)}"
+  [ATT] 4.2 节: "All sequence models use a look-back window of the past 30 daily residual returns."
+  [ATT] 没有说明这 30 天的残差用哪一天的 ω^ε 计算，也没有说明输入是每日残差还是累计残差。
+        [ATT] 4.2 节说 PCA 基准是 "a benchmark in the spirit of [19]"，交易成本 "as in [19]"，
+        因此这两处按 [19] 处理：
+  [19] Guijarro-Ordonez, Pelger, Zanotti, Deep Learning Statistical Arbitrage, arXiv:2106.04028
+        II.A 节公式 (1): ε_t = R_t - β_{t-1}ᵀ F_t = Φ_{t-1} R_t
+        III.B 节: "we conduct a rolling window estimation to obtain daily residuals out of sample
+        ... This means that the residual composition matrix Φ_{t-1} of equation (1) depends only on
+        the information up to time t-1"
+        II.B 节: "We apply the signal extraction to the time-series of the last L lagged residuals
+        ε^L_{n,t-1} := (ε_{n,t-L} ··· ε_{n,t-1})"
+        II.D 节: "The input to the signal extraction functions are the last L cumulative residuals
+        ... x := Int(ε^L_{n,t-1}) ... the operation Int(·) simply integrates a discrete time-series.
+        We can view the cumulative residuals as the residual 'price' process."
+        III.B 节: "At each day we only consider the stocks with no missing observations in the
+        daily returns within the rolling window"
+
+二、实现
+  1. 每日残差（做法 B）：第 s 天的残差用第 s 天自己的投影 ε_s = ω^ε_{s-1} R_s，
+     ω^ε_{s-1} 由第 s 天那一行的特征 X_{s-1} 经环节 ①②③ 得到。见 af_model.daily_residuals。
+     依据 [19] 公式 (1) 与 "daily residuals out of sample"。
+  2. 回看窗口：交易日 t 取 ε_{t-30}, ..., ε_{t-1}（不含 t 日），累加成残差价格路径
+     (ε_{t-30}, ε_{t-30}+ε_{t-29}, ..., Σ 30 天)，作为 LongConv 的输入。见 af_model.residual_windows。
+     依据 [19] II.B、II.D 节（Int 累计）。
+  3. 截面（自行设定）：第 m 月每个交易日用当月股票池（固定的 500 只）；这 500 只股票过去
+     30 天的残差也在这 500 只组成的截面上、用它们各自当天的特征计算。
+     月初新进股票池的股票，进池前那些天的特征来自 data/coding/02 额外输出的 in_universe = 0 的行
+     （排序值相对于当天股票池的分布计算）。
+     原因：做法 B 需要每只股票在过去每一天的特征；如果只用当天在池子里的股票，
+     新进股票就没有残差历史。
+  4. 缺失（依据 [19]）：窗口内有任何一天没有数据（未上市、停牌）的股票，当天不交易
+     （residual_windows 返回的 ok = False），但仍然参与构造因子。
+  5. 训练时按月组织：每个月一块，块内 = 往前 30 个交易日 + 当月所有交易日，
+     每天的残差只算一次，被后面 30 个交易日的窗口共用。
+
+三、输出（attention factor/ 下）
+  hist_X.npy       (4,304,242, 79)  所有需要的 (股票, 日) 的特征（第 0 行为空位）
+                   其中股票池内 4,055,747 行，进池前 248,494 行
+  hist_R.npy       (4,304,242,)      对应的当日收益
+  hist_idx.npy     (19584, 500)  每块每天每个位置在 hist_X 中的行号，0 = 无数据
+  hist_day.npy     (19584,)  对应 hist_dates 的位置
+  hist_ptr.npy     (385,)  第 b 块的起止
+  hist_permno.npy  (384, 500)  第 b 块的股票
+  hist_months.json  384 个月：1990-01 -> 2021-12
+  每块 = 往前 30 个交易日 + 当月交易日，块内第 30 天起是当月交易日。
+
+四、检查结果：9 / 9 项通过
+  （模型 K = 8，W_K、Q 随机初始化，λ_ridge = 1e-05，演示月份 1998-01）
+
+  [通过] C1 块内交易日的股票 = 当天股票池
+         8,064 个交易日，不一致 0 天
+  [通过] C2 30 天残差历史覆盖率提高
+         只用池内的行: 96.31%；加上进池前的行: 99.88%
+  [通过] C3 每日残差 = 手算 ω^ε_{s-1} R_s
+         1998-01-07，最大差 8.7e-16
+  [通过] C3 整块批量 = 逐天计算
+         最大差 1.1e-16
+  [通过] C4 改动 t 日数据，t 日的窗口不变
+         t 日窗口变化 0.0e+00
+  [通过] C4 改动 t 日数据，t+1 日的窗口改变
+         t+1 日窗口变化 6.4e-04
+  [通过] C5 累计残差：第 1 个 = ε_{t-30}，最后 1 个 = 30 天之和
+         最大差 1.7e-16
+  [通过] C5 窗口形状 = (交易日数, 500, 30)
+         (20, 500, 30)
+  [通过] C6 梯度从窗口传回 Q 和 W_K
+         |∇Q| 3.81e-04，|∇W_K| 1.06e-03
+
+  C2 补充：
+    仍不完整的 4,901 个 (股票, 交易日)（占 0.12%），涉及 297 只股票；
+    其中 4,901 个是窗口内该股票在日度面板中没有记录（刚上市不满 30 天或停牌），
+    这些按 [19] 的规则当天不交易。
+
+  C7 同一天的残差在相邻两块中是否一致（仅供参考，不算检查项）：
+    1998-01 的交易日同时出现在 1998-01 块（当月）和下一块（回看窗口）中。两块的截面
+    只差月初进出股票池的少数股票，因子权重会略有不同，所以残差不完全相同。
+    共同的 20 天 × 485 只股票：平均绝对差 / 平均绝对残差 = 3.51%，相关系数 0.9997
+
+五、计算耗时（一个月块，float32，CPU，前向 + 反向）
+  K =   8: 0.03 秒 / 月块；一个 8 年训练窗口（96 个月块）约 3 秒 / epoch
+  K =  30: 0.04 秒 / 月块；一个 8 年训练窗口（96 个月块）约 4 秒 / epoch
+  K = 100: 0.06 秒 / 月块；一个 8 年训练窗口（96 个月块）约 6 秒 / epoch
+  （尚未包含 LongConv；Table 4 中 epochs = 30）
+
+六、下一环节
+  环节 ⑤：LongConv 交易信号——输入 (交易日, 500, 30) 的累计残差，输出每只股票残差组合的权重 ω^port
+
+总耗时 7s
